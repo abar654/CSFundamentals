@@ -31,20 +31,26 @@ public class FundamentalsTester {
 		
 		//Build and test a LinkedList with Integers
 		MyLinkedList<Integer> testList = new MyLinkedList<Integer>();
-		testList.printList(); //Should print empty
+		assert testList.toString().equals("empty");
+		
 		testList.insert(3, 0);
 		testList.insert(5); //Should insert at the start of the list
 		testList.insert(2, 1);
 		testList.insert(6, 9); //Should insert at the end of the list
-		testList.printList(); //Should print: "5, 2, 3, 6"
-		System.out.println("The element at index 2 is: " + testList.get(2)); //Should be 3
-		System.out.println("Just deleted: " + testList.delete(0)); 
-		testList.printList(); //Should print: "2, 3, 6"
+		assert testList.toString().equals("5, 2, 3, 6");
+		
+		assert testList.get(2) == 3;
+		
+		int result = testList.delete(0);
+		assert result == 5;
+		
+		assert testList.toString().equals("2, 3, 6");
+		
 		testList.insert(4, 2);
 		testList.delete(testList.getLength()-1);
 		testList.delete(1);
 		testList.insertLast(7);
-		testList.printList(); //Should print: "2, 4, 7"
+		assert testList.toString().equals("2, 4, 7");
 		
 		//Build and do very simple test for strings
 		MyLinkedList<String> stringList = new MyLinkedList<String>();
@@ -52,22 +58,24 @@ public class FundamentalsTester {
 		stringList.insert("This", 0);
 		stringList.insertLast("a");
 		stringList.insert("list!", 8);
-		stringList.printList();
+		assert stringList.toString().equals("This, is, a, list!");
 		stringList.delete(2);
-		stringList.printList();
+		assert stringList.toString().equals("This, is, list!");
 		
 		//Try illegal access
 		try {
 			testList.delete(testList.getLength());
+			assert false; //Shouldn't reach this line
 		} catch (ArrayIndexOutOfBoundsException e){
-			System.out.println("Exception found: " + e);
 		}
 		
 		try {
 			testList.get(100);
+			assert false; //Shouldn't reach this line
 		} catch (ArrayIndexOutOfBoundsException e){
-			System.out.println("Exception found: " + e);
-		}		
+		}
+		
+		System.out.println("Linked list tests passed.");
 		
 	}
 

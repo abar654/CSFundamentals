@@ -117,7 +117,7 @@ public class MyLinkedList<T> {
 		if(head == null) {
 			
 			//Nothing in the list
-			System.out.print("empty");
+			System.out.print("empty\n");
 			
 		} else {
 		
@@ -131,6 +131,36 @@ public class MyLinkedList<T> {
 			
 			//Print the last item in the list
 			System.out.print(currentNode.getElement().toString() + "\n");
+			
+		}
+		
+	}
+	
+	/*
+	 * Represents the list as a string using the T object's toString method separated by commas
+	 */
+	public String toString() {
+		
+		if(head == null) {
+			
+			//Nothing in the list
+			return("empty");
+			
+		} else {
+		
+			LinkedListNode<T> currentNode = head;
+			String returnString = "";
+			
+			//Loop through the list printing
+			while(currentNode.hasNext()) {
+				returnString += currentNode.getElement().toString() + ", ";
+				currentNode = currentNode.getNext();
+			}
+			
+			//Print the last item in the list
+			returnString += currentNode.getElement().toString();
+			
+			return returnString;
 			
 		}
 		
