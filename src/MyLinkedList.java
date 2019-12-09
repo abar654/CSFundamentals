@@ -91,17 +91,10 @@ public class MyLinkedList<T> {
 			tail = head;
 			
 		} else {
-			
-			LinkedListNode<T> currentNode = head;
-			
-			//Find the last node in the list
-			while(currentNode.hasNext()) {
-				currentNode = currentNode.getNext();
-			}
-			
+				
 			//Add the new element at the end
 			LinkedListNode<T> newNode = new LinkedListNode<T>(element);
-			currentNode.setNext(newNode);
+			tail.setNext(newNode);
 			tail = newNode;
 			length++;
 			

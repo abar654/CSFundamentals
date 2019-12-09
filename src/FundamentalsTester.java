@@ -1,8 +1,8 @@
 /**
  * A collection of fundamental CS data structures and algorithms that I have
  * built from scratch to practice.
- * - Linked Lists 
- * - Stacks and Queues
+ * - Linked Lists -- COMPLETE
+ * - Stacks and Queues -- COMPLETE
  * - Binary Trees
  * - Trees
  * - Hash Tables
@@ -24,9 +24,60 @@ public class FundamentalsTester {
 	public static void main(String[] args) {
 		
 		testLinkedList();
+		testStacksAndQueues();
 		
 	}
 	
+	private static void testStacksAndQueues() {
+		
+		//Build and test a Stack with Integers
+		MyStack<Integer> testStack = new MyStack<Integer>();
+		testStack.push(1);
+		testStack.push(2);
+		testStack.push(3);
+		assert testStack.toString().equals("3, 2, 1");
+		
+		assert testStack.pop() == 3;
+		assert testStack.toString().equals("2, 1");
+		
+		assert testStack.pop() == 2;
+		assert testStack.pop() == 1;
+		assert testStack.toString().equals("empty");
+		assert !testStack.hasNext();
+		
+		//Try illegal access
+		try {
+			testStack.pop();
+			assert false; //Shouldn't reach this line
+		} catch (ArrayIndexOutOfBoundsException e){
+		}
+		
+		//Build and test a Queue with integers
+		MyQueue<Integer> testQueue = new MyQueue<Integer>();
+		testQueue.enqueue(1);
+		testQueue.enqueue(2);
+		testQueue.enqueue(3);
+		assert testQueue.toString().equals("1, 2, 3");
+		
+		assert testQueue.dequeue() == 1;
+		assert testQueue.toString().equals("2, 3");
+		
+		assert testQueue.dequeue() == 2;
+		assert testQueue.dequeue() == 3;
+		assert testQueue.toString().equals("empty");
+		assert !testQueue.hasNext();
+		
+		//Try illegal access
+		try {
+			testQueue.dequeue();
+			assert false; //Shouldn't reach this line
+		} catch (ArrayIndexOutOfBoundsException e){
+		}
+		
+		System.out.println("Stack and Queue tests passed.");
+		
+	}
+
 	private static void testLinkedList() {
 		
 		//Build and test a LinkedList with Integers
