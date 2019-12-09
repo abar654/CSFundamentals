@@ -4,12 +4,12 @@
  * - Linked Lists -- COMPLETE
  * - Stacks and Queues -- COMPLETE
  * - Binary Trees
- * - Trees
  * - Hash Tables
  * - Heaps
  * - Graphs
  * - BFS
  * - DFS
+ * - A*
  * - Binary Search
  * - Insertion sort
  * - Bubble sort
@@ -25,9 +25,52 @@ public class FundamentalsTester {
 		
 		testLinkedList();
 		testStacksAndQueues();
+		testBinaryTree();
 		
 	}
 	
+	private static void testBinaryTree() {
+		
+		//Build a binary search tree of Integers
+		MyBinarySearchTree<Integer> testTree = new MyBinarySearchTree<Integer>();
+		testTree.insert(8);
+		testTree.insert(3);
+		testTree.insert(10);
+		testTree.insert(1);
+		testTree.insert(6);
+		testTree.insert(14);
+		testTree.insert(4);
+		testTree.insert(7);
+		testTree.insert(13);
+		
+		//Pretty print the tree
+		testTree.prettyPrint();
+		
+		//Create string in pre-, in-, post-, bf- order
+		assert testTree.toStringInOrder().equals("1, 3, 4, 6, 7, 8, 10, 13, 14"); //LNR, stack
+		assert testTree.toStringPreOrder().equals("8, 3, 1, 6, 4, 7, 10, 14, 13"); //NLR, stack
+		assert testTree.toStringPostOrder().equals("1, 4, 7, 6, 3, 13, 14, 10, 8"); //LRN, stack
+		assert testTree.toStringBFOrder().equals("8, 3, 10, 1, 6, 14, 4, 7, 13"); //Queue
+		
+		//Balance the tree
+		testTree.balance();
+		
+		//Pretty print the tree again
+		testTree.prettyPrint();
+		
+		//Check if an item is in the tree
+		assert testTree.contains(10);
+		assert !testTree.contains(100);
+		
+		//Remove an item from the tree
+		testTree.remove(10);
+		assert !testTree.contains(10);
+		
+		//Pretty print the tree again
+		testTree.prettyPrint();		
+		
+	}
+
 	private static void testStacksAndQueues() {
 		
 		//Build and test a Stack with Integers

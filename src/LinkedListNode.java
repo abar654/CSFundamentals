@@ -6,8 +6,8 @@
  */
 public class LinkedListNode<T> {
 	
-	T element;
-	LinkedListNode<T> next;
+	private T element;
+	private LinkedListNode<T> next;
 
 	public LinkedListNode(T element) {
 		this.element = element;
