@@ -89,6 +89,7 @@ public class MyLinkedList<T> {
 			
 			head = new LinkedListNode<T>(element);
 			tail = head;
+			length++;
 			
 		} else {
 				

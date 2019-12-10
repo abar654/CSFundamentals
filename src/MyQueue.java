@@ -51,4 +51,22 @@ public class MyQueue<T> {
 		
 	}
 	
+	/*
+	 * Returns the number of items in the queue.
+	 */
+	public int size() {
+		
+		return queue.getLength();
+		
+	}
+	
+	/*
+	 * Prints the contents of the queue.
+	 */
+	public void printQueue() {
+		
+		queue.printList();
+		
+	}
+	
 }
