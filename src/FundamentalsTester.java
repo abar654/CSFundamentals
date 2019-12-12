@@ -46,13 +46,6 @@ public class FundamentalsTester {
 		//Pretty print the tree
 		testTree.prettyPrint();
 		
-		testTree.insert(-3);
-		testTree.insert(9);
-		testTree.insert(17);
-		
-		//Pretty print the tree
-		testTree.prettyPrint();
-		
 		//Create string in pre-, in-, post-, bf- order
 		assert testTree.toStringInOrder().equals("1, 3, 4, 6, 7, 8, 10, 13, 14"); //LNR, stack
 		assert testTree.toStringPreOrder().equals("8, 3, 1, 6, 4, 7, 10, 14, 13"); //NLR, stack
@@ -64,11 +57,26 @@ public class FundamentalsTester {
 		assert !testTree.contains(100);
 		
 		//Remove an item from the tree
-		testTree.remove(10);
-		assert !testTree.contains(10);
+		testTree.remove(8);
+		assert !testTree.contains(8);
 		
 		//Pretty print the tree again
-		testTree.prettyPrint();		
+		testTree.prettyPrint();
+		
+		//Remove an item from the tree
+		testTree.remove(14);
+		assert !testTree.contains(14);
+		
+		//Pretty print the tree again
+		testTree.prettyPrint();
+		
+		//Do some more inserts
+		testTree.insert(-3);
+		testTree.insert(9);
+		testTree.insert(17);
+		
+		//Pretty print the tree
+		testTree.prettyPrint();
 		
 	}
 

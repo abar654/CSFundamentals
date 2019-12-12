@@ -264,35 +264,332 @@ public class MyBinarySearchTree<T extends Comparable<T>> {
 			
 		}
 		
+		//Finish off the output with a newline
+		System.out.println();
+		
 	}
 
+	/*
+	 * Returns a string representation of the tree in in-order format (LNR).
+	 * For a binary search tree in-order arranges the elements in ascending order.
+	 */
 	public String toStringInOrder() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String inOrderString = "";
+		
+		//Use a stack to traverse the tree
+		MyStack<BSTNode<T>> toVisit = new MyStack<BSTNode<T>>();
+		
+		//Use a second stack to keep track of seen vs not seen
+		MyStack<Boolean> seenStack = new MyStack<Boolean>();
+		
+		//Add the root to get started
+		toVisit.push(root);
+		seenStack.push(false);
+		
+		/* Traversal algorithm:
+		 * 1. Pop next item off the stack
+		 * 2. If this item is seen, print it and go to the next loop.
+		 * 3. If there is no left or right, print it and go to the next loop.
+		 * 4. If it has a right then put this on the stack as unseen
+		 * 5. Put this item on the stack as seen.
+		 * 6. If it has a left, put on left as unseen.
+		 */
+		
+		while(toVisit.hasNext()) {
+			
+			BSTNode<T> current = toVisit.pop();
+			boolean seen = seenStack.pop();
+			
+			if(seen || (current.getLeft() == null && current.getRight() == null)) {
+				
+				inOrderString += current.getElement() + ", ";
+				
+			} else {
+				
+				if(current.getRight() != null) {
+					toVisit.push(current.getRight());
+					seenStack.push(false);
+				}
+				
+				toVisit.push(current);
+				seenStack.push(true);
+				
+				if(current.getLeft() != null) {
+					toVisit.push(current.getLeft());
+					seenStack.push(false);
+				}
+				
+			}
+			
+			
+		}
+		
+		//Clipping off the trailing comma and space
+		inOrderString = inOrderString.substring(0, inOrderString.length()-2);
+		
+		return inOrderString;
+		
 	}
 
+	/*
+	 * Returns a string representation of the tree in pre-order i.e. NLR
+	 */
 	public String toStringPreOrder() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String preOrderString = "";
+		
+		//Use a stack to traverse the tree
+		MyStack<BSTNode<T>> toVisit = new MyStack<BSTNode<T>>();
+		
+		//Add the root to get started
+		toVisit.push(root);
+		
+		/* Traversal algorithm:
+		 * 1. Pop next item off the stack
+		 * 2. Print this item
+		 * 3. Push the right if it exists
+		 * 4. Push the left if it exists
+		 */
+		
+		while(toVisit.hasNext()) {
+			
+			BSTNode<T> current = toVisit.pop();
+		
+			preOrderString += current.getElement() + ", ";
+				
+			if(current.getRight() != null) {
+				toVisit.push(current.getRight());
+			}
+
+			if(current.getLeft() != null) {
+				toVisit.push(current.getLeft());
+			}	
+			
+		}
+		
+		//Clipping off the trailing comma and space
+		preOrderString = preOrderString.substring(0, preOrderString.length()-2);
+		
+		return preOrderString;
+		
 	}
 
+	/*
+	 * Returns a string representation of the tree in post-order i.e. LRN
+	 */
 	public String toStringPostOrder() {
-		// TODO Auto-generated method stub
-		return null;
+
+		String postOrderString = "";
+		
+		//Use a stack to traverse the tree
+		MyStack<BSTNode<T>> toVisit = new MyStack<BSTNode<T>>();
+		
+		//Use a second stack to keep track of seen vs not seen
+		MyStack<Boolean> seenStack = new MyStack<Boolean>();
+		
+		//Add the root to get started
+		toVisit.push(root);
+		seenStack.push(false);
+		
+		/* Traversal algorithm:
+		 * 1. Pop next item off the stack
+		 * 2. If this item is seen, print it and go to the next loop.
+		 * 3. If there is no left or right, print it and go to the next loop.
+		 * 4. Put this item on the stack as seen.
+		 * 5. If it has a right then put this on the stack as unseen
+		 * 6. If it has a left, put on left as unseen.
+		 */
+		
+		while(toVisit.hasNext()) {
+			
+			BSTNode<T> current = toVisit.pop();
+			boolean seen = seenStack.pop();
+			
+			if(seen || (current.getLeft() == null && current.getRight() == null)) {
+				
+				postOrderString += current.getElement() + ", ";
+				
+			} else {
+				
+				toVisit.push(current);
+				seenStack.push(true);
+				
+				if(current.getRight() != null) {
+					toVisit.push(current.getRight());
+					seenStack.push(false);
+				}
+				
+				if(current.getLeft() != null) {
+					toVisit.push(current.getLeft());
+					seenStack.push(false);
+				}
+				
+			}
+			
+			
+		}
+		
+		//Clipping off the trailing comma and space
+		postOrderString = postOrderString.substring(0, postOrderString.length()-2);
+		
+		return postOrderString;
+		
 	}
 
+	/*
+	 * Returns a string representation of the tree traversed in breadth first order.
+	 */
 	public String toStringBFOrder() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String bfOrderString = "";
+		
+		//Use a queue to traverse the tree
+		MyQueue<BSTNode<T>> toVisit = new MyQueue<BSTNode<T>>();
+		
+		//Add the root to get started
+		toVisit.enqueue(root);
+		
+		/* Traversal algorithm:
+		 * 1. Pop next item off the stack
+		 * 2. Print the item
+		 * 3. Enqueue left and right if they exist
+		 */
+		
+		while(toVisit.hasNext()) {
+			
+			BSTNode<T> current = toVisit.dequeue();
+			
+			bfOrderString += current.getElement() + ", ";
+			
+			if(current.getLeft() != null) {
+				toVisit.enqueue(current.getLeft());
+			}
+			
+			if(current.getRight() != null) {
+				toVisit.enqueue(current.getRight());
+			}
+			
+		}
+		
+		//Clipping off the trailing comma and space
+		bfOrderString = bfOrderString.substring(0, bfOrderString.length()-2);
+		
+		return bfOrderString;
+		
 	}
 
+	/*
+	 * Returns whether or not the given element is in the tree
+	 */
 	public boolean contains(T element) {
-		// TODO Auto-generated method stub
+
+		/* Algorithm:
+		 * 1. Does the current node have element? If it does then return true
+		 * 2. Is current smaller than element? Continue searching left
+		 * 3. Is current larger than element? Continue searching right?
+		 * 4. If we need to search left/right but there is no node then our element is not in the tree.
+		 */
+		
+		BSTNode<T> current = root;
+		
+		while(current != null) {
+			
+			if(current.getElement().equals(element)) {
+				
+				return true;
+				
+			} else if(element.compareTo(current.getElement()) < 0) {
+				
+				current = current.getLeft();
+				
+			} else {
+				
+				current = current.getRight();
+				
+			}
+			
+		}
+		
+		//If current == null then we did not find the element
 		return false;
+		
 	}
 
+	/*
+	 * Finds the given element in the tree, if it exists, and deletes it.
+	 */
 	public void remove(T element) {
-		// TODO Auto-generated method stub
+		
+		//Find the the element, and keep track of it's parent
+		BSTNode<T> parent = null;
+		BSTNode<T> current = root;
+		
+		while(current != null) {
+			
+			if(current.getElement().equals(element)) {
+				
+				//We have found the element, do the deletion
+				//The deleted element should be replaced by the right subtree
+				//The left subtree should be inserted into the right subtree
+				BSTNode<T> newChild = current.getRight();
+				
+				//If there is no right node then just put the left as the new child
+				if(current.getRight() == null) {
+					
+					newChild = current.getLeft();
+					
+				} else {
+					
+					//Put the left subtree into the left most node of the right subtree
+					BSTNode<T> mostLeft = current.getRight();
+					
+					//Keep iterating until mostLeft doesn't have a left child
+					while(mostLeft.getLeft() != null) {
+						mostLeft = mostLeft.getLeft();
+					}
+					
+					mostLeft.setLeft(current.getLeft());
+					
+				}
+				
+				//If parent is null then root needs to change
+				if(parent == null) {
+					
+					root = newChild;
+					
+				} else {
+					
+					//Replace the node to be deleted with the newChild
+					if(parent.getLeft().getElement() == current.getElement()) {
+						
+						//Replace left
+						parent.setLeft(newChild);
+						
+					} else {
+						
+						//Replace right
+						parent.setRight(newChild);
+						
+					}
+					
+				}
+				
+				return;
+				
+			} else if(element.compareTo(current.getElement()) < 0) {
+				
+				parent = current;
+				current = current.getLeft();
+				
+			} else {
+				
+				parent = current;
+				current = current.getRight();
+				
+			}
+			
+		}
 		
 	}
 
