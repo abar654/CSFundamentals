@@ -3,7 +3,7 @@
  * built from scratch to practice.
  * - Linked Lists -- COMPLETE
  * - Stacks and Queues -- COMPLETE
- * - Binary Trees
+ * - Binary Trees -- COMPLETE
  * - Hash Tables
  * - Heaps
  * - Graphs
@@ -26,10 +26,64 @@ public class FundamentalsTester {
 		testLinkedList();
 		testStacksAndQueues();
 		testBinaryTree();
+		testHashTable();
 		
 	}
 	
+	private static void testHashTable() {
+		
+		//Set to true if you want to see the results of hashtable printing
+		boolean seeResults = true;
+		
+		//Build a hash table
+		MyHashTable<String, Integer> testHashTable = new MyHashTable<String, Integer>(20);
+		testHashTable.add("Andrew", 26);
+		testHashTable.add("Ewan", 21);
+		testHashTable.add("Rusty", 3);
+		testHashTable.add("Alastair", 24);
+		
+		//Print the hashtable
+		if(seeResults) { testHashTable.printTable(); }
+		
+		//Get a list of the keys and print
+		MyLinkedList<String> keys = testHashTable.getKeys();
+		assert keys.getLength() == 4;
+		if(seeResults) {
+			while(keys.getLength() > 0) {
+				System.out.print(keys.delete() + " - ");
+			}
+			System.out.println();
+		}
+		
+		//Get a list of the elements
+		MyLinkedList<Integer> elements = testHashTable.getElements();
+		int sum = 0;
+		while(elements.getLength() > 0) {
+			sum += elements.delete();
+		}
+		assert sum == 74;
+		
+		//Check if an element exists
+		assert testHashTable.contains("Rusty");
+		//Remove an element
+		testHashTable.remove("Rusty");
+		assert !testHashTable.contains("Rusty");
+		
+		//Retrieve an element with a key
+		assert testHashTable.get("Ewan") == 21;
+		assert testHashTable.get("Dr Who") == null;
+		
+		//Change an element
+		testHashTable.add("Ewan", 1);
+		assert testHashTable.get("Ewan") == 1;
+		
+		
+	}
+
 	private static void testBinaryTree() {
+		
+		//Set this to true if you want to pretty print the trees.
+		boolean viewTrees = false;
 		
 		//Build a binary search tree of Integers
 		MyBinarySearchTree<Integer> testTree = new MyBinarySearchTree<Integer>();
@@ -44,7 +98,7 @@ public class FundamentalsTester {
 		testTree.insert(13);
 		
 		//Pretty print the tree
-		testTree.prettyPrint();
+		if(viewTrees) { testTree.prettyPrint(); }
 		
 		//Create string in pre-, in-, post-, bf- order
 		assert testTree.toStringInOrder().equals("1, 3, 4, 6, 7, 8, 10, 13, 14"); //LNR, stack
@@ -61,14 +115,14 @@ public class FundamentalsTester {
 		assert !testTree.contains(8);
 		
 		//Pretty print the tree again
-		testTree.prettyPrint();
+		if(viewTrees) { testTree.prettyPrint(); }
 		
 		//Remove an item from the tree
 		testTree.remove(14);
 		assert !testTree.contains(14);
 		
 		//Pretty print the tree again
-		testTree.prettyPrint();
+		if(viewTrees) { testTree.prettyPrint(); }
 		
 		//Do some more inserts
 		testTree.insert(-3);
@@ -76,7 +130,9 @@ public class FundamentalsTester {
 		testTree.insert(17);
 		
 		//Pretty print the tree
-		testTree.prettyPrint();
+		if(viewTrees) { testTree.prettyPrint(); }
+		
+		System.out.println("Tree tests passed.");
 		
 	}
 
