@@ -93,29 +93,131 @@ public class MyHashTable<K, V> {
 		
 	}
 
+	/*
+	 * Returns a linked list of all the keys in the hash table
+	 */
 	public MyLinkedList<K> getKeys() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public MyLinkedList<V> getElements() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public boolean contains(K key) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public void remove(K key) {
-		// TODO Auto-generated method stub
+		
+		MyLinkedList<K> keys = new MyLinkedList<K>();
+		
+		//Go to every index of the array
+		for(int i = 0; i < array.length; i++) {
+			
+			//If this index contains a linked list add the key from each element.
+			if(array[i] != null) {
+				
+				for(int j = 0; j < array[i].getLength(); j++) {
+					HashNode node = array[i].get(j);
+					keys.insert(node.key);
+				}
+				
+			}
+			
+		}
+		
+		return keys;
 		
 	}
 
+	/*
+	 * Returns a linked list of all the elements in the hash table
+	 */
+	public MyLinkedList<V> getValues() {
+		
+		MyLinkedList<V> values = new MyLinkedList<V>();
+		
+		//Go to every index of the array
+		for(int i = 0; i < array.length; i++) {
+			
+			//If this index contains a linked list add the key from each element.
+			if(array[i] != null) {
+				
+				for(int j = 0; j < array[i].getLength(); j++) {
+					HashNode node = array[i].get(j);
+					values.insert(node.value);
+				}
+				
+			}
+			
+		}
+		
+		return values;
+		
+	}
+
+	/*
+	 * Returns true if the given key maps to a value in the hash table
+	 */
+	public boolean contains(K key) {
+				
+		//Hash the key to find its index
+		int index = key.hashCode() % array.length;
+		
+		//Check if the key can be found in the list at that index
+		if(array[index] != null) {
+
+			for(int i = 0; i < array[index].getLength(); i++) {
+				
+				if(array[index].get(i).key.equals(key)) {
+					return true;
+				}
+				
+			}
+			
+		}
+		
+		return false;
+		
+	}
+
+	/*
+	 * Removes the given key if it maps to a value in the hash table
+	 */
+	public void remove(K key) {
+		
+		//Hash the key to find its index
+		int index = key.hashCode() % array.length;
+		
+		//Check if the key can be found in the list at that index
+		if(array[index] != null) {
+
+			for(int i = 0; i < array[index].getLength(); i++) {
+				
+				if(array[index].get(i).key.equals(key)) {
+					//Remove the element
+					array[index].delete(i);
+					size--;
+				}
+				
+			}
+			
+		}
+		
+	}
+
+	/*
+	 * Returns the value which the given key maps to in the hash table.
+	 */
 	public V get(K key) {
-		// TODO Auto-generated method stub
+		
+		//Hash the key to find its index
+		int index = key.hashCode() % array.length;
+		
+		//Check if the key can be found in the list at that index
+		if(array[index] != null) {
+
+			for(int i = 0; i < array[index].getLength(); i++) {
+				
+				if(array[index].get(i).key.equals(key)) {
+					return array[index].get(i).value;
+				}
+				
+			}
+			
+		}
+		
 		return null;
+		
 	}
 	
 	private class HashNode {

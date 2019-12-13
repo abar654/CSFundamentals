@@ -4,7 +4,7 @@
  * - Linked Lists -- COMPLETE
  * - Stacks and Queues -- COMPLETE
  * - Binary Trees -- COMPLETE
- * - Hash Tables
+ * - Hash Tables -- COMPLETE
  * - Heaps
  * - Graphs
  * - BFS
@@ -33,7 +33,7 @@ public class FundamentalsTester {
 	private static void testHashTable() {
 		
 		//Set to true if you want to see the results of hashtable printing
-		boolean seeResults = true;
+		boolean seeResults = false;
 		
 		//Build a hash table
 		MyHashTable<String, Integer> testHashTable = new MyHashTable<String, Integer>(20);
@@ -56,7 +56,7 @@ public class FundamentalsTester {
 		}
 		
 		//Get a list of the elements
-		MyLinkedList<Integer> elements = testHashTable.getElements();
+		MyLinkedList<Integer> elements = testHashTable.getValues();
 		int sum = 0;
 		while(elements.getLength() > 0) {
 			sum += elements.delete();
@@ -77,6 +77,10 @@ public class FundamentalsTester {
 		testHashTable.add("Ewan", 1);
 		assert testHashTable.get("Ewan") == 1;
 		
+		//Print the hashtable
+		if(seeResults) { testHashTable.printTable(); }
+		
+		System.out.println("Hash table tests passed.");
 		
 	}
 
