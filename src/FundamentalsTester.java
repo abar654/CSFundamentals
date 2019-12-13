@@ -27,9 +27,64 @@ public class FundamentalsTester {
 		testStacksAndQueues();
 		testBinaryTree();
 		testHashTable();
+		testHeap();
 		
 	}
 	
+	private static void testHeap() {
+		
+		boolean showHeaps = true;
+		
+		//Create a min heap (by setting the boolean to true)
+		MyHeap<String> testHeap = new MyHeap<String>(true);
+		testHeap.push("Finnish");
+		testHeap.push("English");
+		testHeap.push("Russian");
+		testHeap.push("French");
+		testHeap.push("Chinese");
+		
+		//Check the size
+		assert testHeap.getSize() == 5;
+		
+		//Delete
+		testHeap.delete("Finnish");
+		testHeap.delete("Spanish");
+		
+		//Print
+		if(showHeaps) { System.out.println(testHeap.toString()); }
+		
+		//Pop
+		assert testHeap.pop().equals("Chinese");
+		assert testHeap.pop().equals("English");
+		assert testHeap.pop().equals("French");
+		assert testHeap.pop().equals("Russian");
+		assert testHeap.pop() == null; //Trying to pop an empty heap
+		
+		//Create a bigger max heap
+		MyHeap<String> bigHeap = new MyHeap<String>(false);
+		
+		//Insert a bunch of words into the heap
+		String sentence = "Heaps are usually implemented with an implicit heap data structure which is an implicit data structure consisting of an array fixed size or dynamic array where each element represents a tree node whose parent children relationship is defined implicitly by their index";
+		sentence = sentence.toLowerCase();
+		for(String word: sentence.split("\\W+")) {
+			if(!bigHeap.contains(word)) {
+				bigHeap.push(word);
+			}
+		}
+		
+		if(showHeaps) {
+			
+			//Print the contents of the heap in order
+			while(bigHeap.getSize() > 0) {
+				System.out.print(bigHeap.pop());
+			}
+			
+			System.out.println();
+		}
+		
+		
+	}
+
 	private static void testHashTable() {
 		
 		//Set to true if you want to see the results of hashtable printing
